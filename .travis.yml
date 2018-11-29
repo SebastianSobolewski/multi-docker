@@ -10,7 +10,7 @@ script:
 
 after_success:
   - docker build -t sebastian.sobolewski/multi-client ./client
-  - docker build -t sebastian.sobolewski/multi-nging ./nginx
+  - docker build -t sebastian.sobolewski/multi-nginx ./nginx
   - docker build -t sebastian.sobolewski/multi-server ./server
   - docker build -t sebastian.sobolewski/multi-worker ./worker
 
