@@ -4,22 +4,22 @@ services:
   - docker
 
 before_install:
-  - docker build -t sebastiansobolewski/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t sobolewskisebastian/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run sebastiansobolewski/react-test npm test -- --coverage
+  - docker run sobolewskisebastian/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t sebastiansobolewski/multi-client ./client
-  - docker build -t sebastiansobolewski/multi-nginx ./nginx
-  - docker build -t sebastiansobolewski/multi-server ./server
-  - docker build -t sebastiansobolewski/multi-worker ./worker
+  - docker build -t sobolewskisebastian/multi-client ./client
+  - docker build -t sobolewskisebastian/multi-nginx ./nginx
+  - docker build -t sobolewskisebastian/multi-server ./server
+  - docker build -t sobolewskisebastian/multi-worker ./worker
 
 # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  - docker push sebastiansobolewski/multi-client
-  - docker push sebastiansobolewski/multi-nginx
-  - docker push sebastiansobolewski/multi-server
-  - docker push sebastiansobolewski/multi-worker
+  - docker push sobolewskisebastian/multi-client
+  - docker push sobolewskisebastian/multi-nginx
+  - docker push sobolewskisebastian/multi-server
+  - docker push sobolewskisebastian/multi-worker
 
