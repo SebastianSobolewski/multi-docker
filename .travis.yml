@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t sebastian.sobolewski/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run sebastian.sobolewski/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t sebastian.sobolewski/multi-client ./client
+  - docker build -t sebastian.sobolewski/multi-nging ./nginx
+  - docker build -t sebastian.sobolewski/multi-server ./server
+  - docker build -t sebastian.sobolewski/multi-worker ./worker
+
+# Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push sebastian.sobolewski/multi-client
+  - docker push sebastian.sobolewski/multi-nginx
+  - docker push sebastian.sobolewski/multi-server
+  - docker push sebastian.sobolewski/multi-worker
+
